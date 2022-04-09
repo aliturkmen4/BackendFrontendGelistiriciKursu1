@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -35,17 +36,17 @@ namespace Business.Concrete
         {
             //Business codes => buraya iş kodlarını yazarsın örneğin daha önce eklenen bir ürünün isminin bir daha eklenememesi gibi veya validation kodları!
             _productDal.Add(product);
-            return new SuccessResult("Ürün başarıyla eklendi!");
+            return new SuccessResult(Messages.ProductAdded); //buradaki mesajlara string bir şekilde yazarsam MAGIC STRING DENİR! bu ileride karışıklığa sebebiyet verebileceği için business katmanı altında constants klasörene bir static messages class'ı oluşturup mesajlarımı oradan aldım!
         }
         public IResult Delete(Product product)
         {
             _productDal.Delete(product);
-            return new SuccessResult("Ürün başarıyla silindi!");
+            return new SuccessResult(Messages.ProductDeleted);
         }
         public IResult Update(Product product)
         {
             _productDal.Update(product);
-            return new SuccessResult("Ürün başarıyla güncellendi!");
+            return new SuccessResult(Messages.ProductUpdated);
         }
     }
 }
