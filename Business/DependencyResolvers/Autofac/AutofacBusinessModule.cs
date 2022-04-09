@@ -15,6 +15,9 @@ namespace Business.DependencyResolvers.Autofac
         {
             builder.RegisterType<ProductManager>().As<IProductService>(); //productmanager tipimi register et dedim! //bu şey demek birisi IProductService şeklinde bir isterse constructorında  biz ona ProductManager veriyor olacağız!
             builder.RegisterType<EfProductDal>().As<IProductDal>();
+
+            builder.RegisterType<CategoryManager>().As<ICategoryService>(); 
+            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>();
         }
     }
 }
