@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
@@ -18,30 +19,33 @@ namespace Business.Concrete
            this. _productDal = productDal;
         }
 
-        public Product GetById(int productId)
+        public IDataResult<Product> GetById(int productId)
         {
-            return _productDal.Get(p => p.ProductId == productId); //yukarıda dependency injection uygulayarak ef e bağımlılığını kaldırdım!
+            return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId)); //yukarıda dependency injection uygulayarak ef e bağımlılığını kaldırdım!
         }
-        public List<Product> GetList()
+        public IDataResult<List<Product>> GetList()
         {
-            return _productDal.GetList().ToList();
+            return new SuccessDataResult<List<Product>>(_productDal.GetList().ToList());
         }
-        public List<Product> GetListByCategory(int categoryId)
+        public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
-            return _productDal.GetList(p => p.CategoryId == categoryId).ToList();
+            return new SuccessDataResult<List<Product>> (_productDal.GetList(p => p.CategoryId == categoryId).ToList());
         }
-        public void Add(Product product)
+        public IResult Add(Product product)
         {
             //Business codes => buraya iş kodlarını yazarsın örneğin daha önce eklenen bir ürünün isminin bir daha eklenememesi gibi veya validation kodları!
             _productDal.Add(product);
+            return new SuccessResult("Ürün başarıyla eklendi!");
         }
-        public void Delete(Product product)
+        public IResult Delete(Product product)
         {
             _productDal.Delete(product);
+            return new SuccessResult("Ürün başarıyla silindi!");
         }
-        public void Update(Product product)
+        public IResult Update(Product product)
         {
             _productDal.Update(product);
+            return new SuccessResult("Ürün başarıyla güncellendi!");
         }
     }
 }

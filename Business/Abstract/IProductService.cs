@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.Results;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,17 +8,17 @@ namespace Business.Abstract
 {
     public interface IProductService //operasyonları bu şekilde primitive tipler ya da objelerle yazmaya dikkat et! //business katmanında generic kullanmamaya dikat et! (saf bir şekilde yaz!)
     {
-        Product GetById(int productId);
+        IDataResult<Product> GetById(int productId);
 
-        List<Product> GetList();
+        IDataResult<List<Product>> GetList();
 
-        List<Product> GetListByCategory(int categoryId);
+        IDataResult<List<Product>> GetListByCategory(int categoryId);
 
-        void Add(Product product); //bir ürünü eklemek için!
+        IResult Add(Product product); //bir ürünü eklemek için! //ıresult türünde başarılı mı oldum başarısız mı onu kontrol etmek istiyorum!
 
-        void Delete(Product product);
+        IResult Delete(Product product);
 
-        void Update(Product product);
+        IResult Update(Product product);
 
     }
 }
